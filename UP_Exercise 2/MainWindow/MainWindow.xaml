@@ -10,18 +10,18 @@
         Style="{DynamicResource WindowStyle}">
 
     <Grid>
-        <DataGrid Name="MainDataGrid" RowHeight="25" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="35,30,565,215">
+        <DataGrid Name="MainDataGrid" RowHeight="25" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="35,30,565,215">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False"  Header="0"  Binding="{Binding [0]}"/>
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="1"  Binding="{Binding [1]}"/>
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="2" Binding="{Binding [2]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="3" Binding="{Binding [3]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="4"  Binding="{Binding [4]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="5"  Binding="{Binding [5]}"/>
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="6" Binding="{Binding [6]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="7" Binding="{Binding [7]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="8"  Binding="{Binding [8]}" />
-                <DataGridTextColumn Width="30" CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="9" Binding="{Binding [9]}" />
+                <DataGridTextColumn Width="30" Header="0"  Binding="{Binding [0]}"/>
+                <DataGridTextColumn Width="30" Header="1"  Binding="{Binding [1]}"/>
+                <DataGridTextColumn Width="30" Header="2" Binding="{Binding [2]}" />
+                <DataGridTextColumn Width="30" Header="3" Binding="{Binding [3]}" />
+                <DataGridTextColumn Width="30" Header="4"  Binding="{Binding [4]}" />
+                <DataGridTextColumn Width="30" Header="5"  Binding="{Binding [5]}"/>
+                <DataGridTextColumn Width="30" Header="6" Binding="{Binding [6]}" />
+                <DataGridTextColumn Width="30" Header="7" Binding="{Binding [7]}" />
+                <DataGridTextColumn Width="30" Header="8"  Binding="{Binding [8]}" />
+                <DataGridTextColumn Width="30" Header="9" Binding="{Binding [9]}" />
             </DataGrid.Columns>
         </DataGrid>
 
