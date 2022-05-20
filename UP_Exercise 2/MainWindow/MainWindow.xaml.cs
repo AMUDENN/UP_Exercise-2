@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,41 +19,47 @@ namespace UP_Exercise_2
 {
     public partial class MainWindow : Window
     {
-        static int[][] matrix = new int[10][];
+        public static List<List<int>> matrix = new List<List<int>>(count);
+        public static int count = 10;
         public MainWindow()
         {
             InitializeComponent();
-            Get_Random_Matrix();
-
+            Get_Random_Matrix(count);
         }
-        private void Matrix_Out(int[][] matrix)
+        private void Matrix_Out(List<List<int>> matrix)
         {
-            ObservableCollection<string[]> data = new ObservableCollection<string[]> { };
-            for (int i = 0; i < matrix.Length; i++)
+            DataTable data = new DataTable();
+
+            for (int i = 0; i < matrix.Count; i++)
             {
-                string[] rows = new string[matrix[i].Length];
-                for (int j = 0; j < rows.Length; j++)
-                {
-                    rows[j] = Convert.ToString(matrix[i][j]);
-                }
-                data.Add(rows);
+                data.Columns.Add(i.ToString());
             }
-            MainDataGrid.ItemsSource = data;
+            for (int row = 0; row < matrix.Count; row++)
+            {
+                DataRow datarow = data.NewRow();
+                for (int col = 0; col < matrix.Count; col++)
+                {
+                    datarow[col] = matrix[row][col];
+                }
+                data.Rows.Add(datarow);
+            }
+            MainDataGrid.ItemsSource = data.DefaultView;
+            MainDataGrid.RowHeight = 250 / matrix.Count;
+            MainDataGrid.ColumnWidth = 310 / matrix.Count;
             All_Out();
         }
-        private void Get_Random_Matrix()
+        private void Get_Random_Matrix(int count)
         {
+            matrix = new List<List<int>>(count);
             Random rnd = new Random();
-            for (int i = 0; i < matrix.Length; i++)
+            for (int i = 0; i < count; i++)
             {
-                int[] int_row = new int[matrix.Length];
-                int num;
-                for (int j = 0; j < int_row.Length; j++)
+                List<int> int_row = new List<int>();
+                for (int j = 0; j < count; j++)
                 {
-                    num = rnd.Next(1, 100);
-                    int_row[j] = num;
+                    int_row.Add(rnd.Next(1, 100));
                 }
-                matrix[i] = int_row;
+                matrix.Add(int_row);
             }
             Matrix_Out(matrix);
             All_Out();
@@ -60,32 +67,22 @@ namespace UP_Exercise_2
 
         private void GetRandom_Button_Click(object sender, RoutedEventArgs e)
         {
-            Get_Random_Matrix();
+            Get_Random_Matrix(count);
         }
 
         private void Set_Values_Click(object sender, RoutedEventArgs e)
         {
             var items = MainDataGrid.ItemsSource;
-            int i = 0;
             int j = 0;
-            foreach (string[] elem in items)
+
+            foreach (DataRowView row in items)
             {
-                string[] row = elem;
-                j = 0;
-                foreach (var item in row)
+                for (int i = 0; i < matrix.Count; i++)
                 {
-                    Exception ex = ExceptionFunctions.Ex_Int(item, "Элемент матрицы");
-                    if (ex == null)
-                    {
-                        matrix[i][j] = Convert.ToInt32(item);
-                    }
-                    else
-                    {
-                        matrix[i][j] = 0;
-                    }
-                    j++;
+                    Exception ex = ExceptionFunctions.Ex_Int(row[i].ToString(), "Элемент матрицы");
+                    matrix[j][i] = ex == null ? Convert.ToInt32(row[i].ToString()) : 0;
                 }
-                i++;
+                j++;
             }
             Matrix_Out(matrix);
             All_Out();

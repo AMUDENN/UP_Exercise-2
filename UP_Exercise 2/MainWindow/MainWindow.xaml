@@ -10,19 +10,9 @@
         Style="{DynamicResource WindowStyle}">
 
     <Grid>
-        <DataGrid Name="MainDataGrid" RowHeight="25" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnWidth="30" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="35,30,565,215">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="0"  Binding="{Binding [0]}"/>
-                <DataGridTextColumn Header="1"  Binding="{Binding [1]}"/>
-                <DataGridTextColumn Header="2" Binding="{Binding [2]}" />
-                <DataGridTextColumn Header="3" Binding="{Binding [3]}" />
-                <DataGridTextColumn Header="4"  Binding="{Binding [4]}" />
-                <DataGridTextColumn Header="5"  Binding="{Binding [5]}"/>
-                <DataGridTextColumn Header="6" Binding="{Binding [6]}" />
-                <DataGridTextColumn Header="7" Binding="{Binding [7]}" />
-                <DataGridTextColumn Header="8"  Binding="{Binding [8]}" />
-                <DataGridTextColumn Header="9" Binding="{Binding [9]}" />
-            </DataGrid.Columns>
+        <DataGrid Name="MainDataGrid" RowHeight="25" ColumnWidth="30" ItemsSource="{Binding}" 
+                  CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="35,30,565,215"> 
         </DataGrid>
 
         <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,335,575,145" />
