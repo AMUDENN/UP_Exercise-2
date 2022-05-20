@@ -12,11 +12,14 @@
     <Grid>
         <DataGrid Name="MainDataGrid" RowHeight="25" ColumnWidth="30" ItemsSource="{Binding}" 
                   CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
-                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="35,30,565,215"> 
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="40,100,560,145">
         </DataGrid>
 
-        <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,335,575,145" />
-        <Button x:Name="overwrittingbutton" Content="Записать введённые значения" Style="{DynamicResource ButtonStyle}" Click="Set_Values_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,395,575,85" />
+        <Button x:Name="sizebutton" Content="Задать размер матрицы" Style="{DynamicResource ButtonStyle}" Click="SetSize_Button_Click" Height="40" MinHeight="45" MinWidth="200" Margin="40,35,640,455" />
+        <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,395,575,85" />
+        <Button x:Name="overwrittingbutton" Content="Записать введённые значения" Style="{DynamicResource ButtonStyle}" Click="Set_Values_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,455,575,25" />
+
+        <TextBox Name="size_tbox" Style="{DynamicResource TextBoxStyle}" ToolTip="Задайте размер матрицы в диапазоне от 1 до 15" Width="70" Height="45"  Margin="285,35,555,455"/>
 
         <Label Content="Главная диагональ" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,30,290,455" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="365,70,410,425" />

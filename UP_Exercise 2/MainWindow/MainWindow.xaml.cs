@@ -28,6 +28,8 @@ namespace UP_Exercise_2
         }
         private void Matrix_Out(List<List<int>> matrix)
         {
+            MainDataGrid.RowHeight = 250 / count;
+            MainDataGrid.ColumnWidth = 310 / count;
             DataTable data = new DataTable();
 
             for (int i = 0; i < matrix.Count; i++)
@@ -44,10 +46,17 @@ namespace UP_Exercise_2
                 data.Rows.Add(datarow);
             }
             MainDataGrid.ItemsSource = data.DefaultView;
-            MainDataGrid.RowHeight = 250 / matrix.Count;
-            MainDataGrid.ColumnWidth = 310 / matrix.Count;
             All_Out();
         }
+
+        private void SetSize_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Exception ex = ExceptionFunctions.Ex_Int(size_tbox.Text, "Элемент матрицы", 1, 15);
+            count = ex == null ? Convert.ToInt32(size_tbox.Text) : 10;
+            Get_Random_Matrix(count);
+
+        }
+
         private void Get_Random_Matrix(int count)
         {
             matrix = new List<List<int>>(count);
