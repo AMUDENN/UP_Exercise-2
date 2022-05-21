@@ -10,18 +10,15 @@
         Style="{DynamicResource WindowStyle}">
 
     <Grid>
-        <DataGrid Name="MainDataGrid" RowHeight="25" ColumnWidth="30" ItemsSource="{Binding}" 
-                  CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False"
-                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="40,100,560,145">
-        </DataGrid>
+        <UniformGrid Name="MainUniformGrid" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="40,100,560,145"></UniformGrid>
 
         <Button x:Name="sizebutton" Content="Задать размер матрицы" Style="{DynamicResource ButtonStyle}" Click="SetSize_Button_Click" Height="40" MinHeight="45" MinWidth="200" Margin="40,35,640,455" />
         <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,395,575,85" />
         <Button x:Name="overwrittingbutton" Content="Записать введённые значения" Style="{DynamicResource ButtonStyle}" Click="Set_Values_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,455,575,25" />
 
-        <TextBox Name="size_tbox" Style="{DynamicResource TextBoxStyle}" ToolTip="Задайте размер матрицы в диапазоне от 1 до 15" Width="70" Height="45"  Margin="285,35,555,455"/>
+        <TextBox Name="size_tbox" Style="{DynamicResource TextBoxStyle}" ToolTip="Задайте размер матрицы в диапазоне от 1 до 15" Width="70" Height="45"  Margin="290,35,560,455"/>
 
-        <Label Content="Главная диагональ" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,30,290,455" />
+        <Label Content="Главная диагональ" MouseEnter="Main_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,30,290,455" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="365,70,410,425" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="365,100,410,395" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="365,130,410,365" />
@@ -30,7 +27,7 @@
         <TextBox Name="maindiagonal_min" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,100,290,395"/>
         <TextBox Name="maindiagonal_max" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,130,290,365"/>
 
-        <Label Content="Побочная диагональ" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,30,35,455" RenderTransformOrigin="0.308,0.601" />
+        <Label Content="Побочная диагональ" MouseEnter="Secondary_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,30,35,455" RenderTransformOrigin="0.308,0.601" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="620,70,155,425" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="620,100,155,395" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="620,130,155,365" />
@@ -39,7 +36,7 @@
         <TextBox Name="secondarydiagonal_min" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="765,100,35,395"/>
         <TextBox Name="secondarydiagonal_max" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="765,130,35,365"/>
 
-        <Label Content="Верхний треугольник" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,170,290,315" />
+        <Label Content="Верхний треугольник" MouseEnter="Top_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,170,290,315" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="365,210,410,285" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="365,240,410,255" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="365,270,410,225" />
@@ -48,7 +45,7 @@
         <TextBox Name="toptriangle_min" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,240,290,255"/>
         <TextBox Name="toptriangle_max" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,270,290,225"/>
 
-        <Label Content="Нижний треугольник" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,170,35,315" />
+        <Label Content="Нижний треугольник" MouseEnter="Bottom_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,170,35,315" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="620,210,155,285" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="620,240,155,255" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="620,270,155,225" />
@@ -57,7 +54,7 @@
         <TextBox Name="bottomtriangle_min" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="765,240,35,255"/>
         <TextBox Name="bottomtriangle_max" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="765,270,35,225"/>
 
-        <Label Content="Левый трегуольник" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,310,290,175" />
+        <Label Content="Левый трегуольник" MouseEnter="Left_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="380,310,290,175" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="365,350,410,145" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="365,380,410,115" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="365,410,410,85" />
@@ -66,7 +63,7 @@
         <TextBox Name="lefttriangle_min" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,380,290,115"/>
         <TextBox Name="lefttriangle_max" IsReadOnly="True" Style="{DynamicResource TextBoxStyle}" Height="30" Width="120" Margin="510,410,290,85"/>
 
-        <Label Content="Правый треугольник" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,310,35,175" />
+        <Label Content="Правый треугольник" MouseEnter="Right_hl" MouseLeave="Mouse_Leave" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" Style="{DynamicResource LabelStyle}" Margin="635,310,35,175" />
         <Label Content="Сумма: " Style="{DynamicResource LabelStyle}" Margin="620,350,155,145" />
         <Label Content="Минимальный: " Style="{DynamicResource LabelStyle}" Margin="620,380,155,115" />
         <Label Content="Максимальный: " Style="{DynamicResource LabelStyle}" Margin="620,410,155,85" />

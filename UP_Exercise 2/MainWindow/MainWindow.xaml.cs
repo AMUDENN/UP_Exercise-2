@@ -19,92 +19,78 @@ namespace UP_Exercise_2
 {
     public partial class MainWindow : Window
     {
-        public static List<List<int>> matrix = new List<List<int>>(count);
+        public static int[,] matrix = new int[,] { };
         public static int count = 10;
+        public static Random rnd = new Random();
         public MainWindow()
         {
             InitializeComponent();
             Get_Random_Matrix(count);
         }
-        private void Matrix_Out(List<List<int>> matrix)
+        private void Matrix_Out(int[,] matrix)
         {
-            MainDataGrid.RowHeight = 250 / count;
-            MainDataGrid.ColumnWidth = 310 / count;
-            DataTable data = new DataTable();
-
-            for (int i = 0; i < matrix.Count; i++)
+            MainUniformGrid.Children.Clear();
+            for (int row = 0; row < count; row++)
             {
-                data.Columns.Add(i.ToString());
-            }
-            for (int row = 0; row < matrix.Count; row++)
-            {
-                DataRow datarow = data.NewRow();
-                for (int col = 0; col < matrix.Count; col++)
+                for (int col = 0; col < count; col++)
                 {
-                    datarow[col] = matrix[row][col];
+                    TextBox tb = new TextBox
+                    {
+                        Text = matrix[row, col].ToString(),
+                        Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"]
+                    };
+                    MainUniformGrid.Children.Add(tb);
                 }
-                data.Rows.Add(datarow);
             }
-            MainDataGrid.ItemsSource = data.DefaultView;
             All_Out();
         }
-
         private void SetSize_Button_Click(object sender, RoutedEventArgs e)
         {
             Exception ex = ExceptionFunctions.Ex_Int(size_tbox.Text, "Элемент матрицы", 1, 15);
             count = ex == null ? Convert.ToInt32(size_tbox.Text) : 10;
             Get_Random_Matrix(count);
-
         }
 
         private void Get_Random_Matrix(int count)
         {
-            matrix = new List<List<int>>(count);
-            Random rnd = new Random();
+            matrix = new int[count, count];
             for (int i = 0; i < count; i++)
             {
-                List<int> int_row = new List<int>();
                 for (int j = 0; j < count; j++)
                 {
-                    int_row.Add(rnd.Next(1, 100));
+                    matrix[i, j] = rnd.Next(1, 100);
                 }
-                matrix.Add(int_row);
             }
             Matrix_Out(matrix);
             All_Out();
         }
-
         private void GetRandom_Button_Click(object sender, RoutedEventArgs e)
         {
             Get_Random_Matrix(count);
         }
-
         private void Set_Values_Click(object sender, RoutedEventArgs e)
         {
-            var items = MainDataGrid.ItemsSource;
+            var items = MainUniformGrid.Children;
+            int i = 0;
             int j = 0;
-
-            foreach (DataRowView row in items)
+            foreach (TextBox tb in items)
             {
-                for (int i = 0; i < matrix.Count; i++)
-                {
-                    Exception ex = ExceptionFunctions.Ex_Int(row[i].ToString(), "Элемент матрицы");
-                    matrix[j][i] = ex == null ? Convert.ToInt32(row[i].ToString()) : 0;
-                }
-                j++;
+                Exception ex = ExceptionFunctions.Ex_Int(tb.Text, "Элемент матрицы");
+                matrix[j, i] = ex == null ? Convert.ToInt32(tb.Text) : 0;
+                i++;
+                if (i % count == 0) { j++; i = 0; }
             }
             Matrix_Out(matrix);
             All_Out();
         }
-
         private void All_Out()
         {
-            List<int> main_diag = MatrixFunctions.Main_Diagonal(matrix);
-            List<int> second_diag = MatrixFunctions.Secondary_Diagonal(matrix);
-            List<int> top_triang = MatrixFunctions.Top_Triangle(matrix);
-            List<int> bottom_triang = MatrixFunctions.Bottom_Triangle(matrix);
-            List<int> left_triang = MatrixFunctions.Left_Triangle(matrix);
-            List<int> right_triang = MatrixFunctions.Right_Triangle(matrix);
+            List<int> main_diag = MatrixFunctions.Main_Diagonal(matrix, count);
+            List<int> second_diag = MatrixFunctions.Secondary_Diagonal(matrix, count);
+            List<int> top_triang = MatrixFunctions.Top_Triangle(matrix, count);
+            List<int> bottom_triang = MatrixFunctions.Bottom_Triangle(matrix, count);
+            List<int> left_triang = MatrixFunctions.Left_Triangle(matrix, count);
+            List<int> right_triang = MatrixFunctions.Right_Triangle(matrix, count);
             maindiagonal_amount.Text = Convert.ToString(main_diag[0]);
             maindiagonal_min.Text = Convert.ToString(main_diag[1]);
             maindiagonal_max.Text = Convert.ToString(main_diag[2]);
@@ -123,6 +109,110 @@ namespace UP_Exercise_2
             righttriangle_amount.Text = Convert.ToString(right_triang[0]);
             righttriangle_min.Text = Convert.ToString(right_triang[1]);
             righttriangle_max.Text = Convert.ToString(right_triang[2]);
+        }
+        private void Main_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            foreach (TextBox tb in items)
+            {
+                if(i == j)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Secondary_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            foreach (TextBox tb in items)
+            {
+                if (i == count - j - 1)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Top_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            foreach (TextBox tb in items)
+            {
+                if (i >= j)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Bottom_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            foreach (TextBox tb in items)
+            {
+                if (i <= j)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Left_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            int average = (int)Math.Ceiling(count / 2.0);
+            foreach (TextBox tb in items)
+            {
+                if (i <= j && j < average)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                if (j >= average && i < count - j)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Right_hl(object sender, EventArgs e)
+        {
+            var items = MainUniformGrid.Children;
+            int i = 0;
+            int j = 0;
+            int average = (int)Math.Ceiling(count / 2.0);
+            foreach (TextBox tb in items)
+            {
+                if (i >= count - j - 1 && j < average)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                if (i>=j && j >= average)
+                {
+                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                }
+                i++;
+                if (i % count == 0) { j++; i = 0; }
+            }
+        }
+        private void Mouse_Leave(object sender, EventArgs e)
+        {
+            Matrix_Out(matrix);
         }
     }
 }

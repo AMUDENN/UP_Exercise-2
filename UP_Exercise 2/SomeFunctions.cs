@@ -52,171 +52,169 @@ namespace UP_Exercise_2
     }
     internal class MatrixFunctions
     {
-        public static List<int> Main_Diagonal(List<List<int>> matrix)
+        public static List<int> Main_Diagonal(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
-            for (int i = 0; i < matrix.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                if (matrix[i][i] < min)
+                if (matrix[i, i] < min)
                 {
-                    min = matrix[i][i];
+                    min = matrix[i, i];
                 }
-                if (matrix[i][i] > max)
+                if (matrix[i, i] > max)
                 {
-                    max = matrix[i][i];
+                    max = matrix[i, i];
                 }
-                amount += matrix[i][i];
+                amount += matrix[i, i];
             }
             List<int> result = new List<int> { amount, min, max };
             return result;
         }
-
-        public static List<int> Secondary_Diagonal(List<List<int>> matrix)
+        public static List<int> Secondary_Diagonal(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
-            for (int i = 0; i < matrix.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                if (matrix[i][matrix.Count - i - 1] < min)
+                if (matrix[i, count - i - 1] < min)
                 {
-                    min = matrix[i][matrix.Count - i - 1];
+                    min = matrix[i, count - i - 1];
                 }
-                if (matrix[i][matrix.Count - i - 1] > max)
+                if (matrix[i, count - i - 1] > max)
                 {
-                    max = matrix[i][matrix.Count - i - 1];
+                    max = matrix[i, count - i - 1];
                 }
-                amount += matrix[i][matrix.Count - i - 1];
+                amount += matrix[i, count - i - 1];
             }
             List<int> result = new List<int> { amount, min, max };
             return result;
         }
-
-        public static List<int> Top_Triangle(List<List<int>> matrix)
+        public static List<int> Top_Triangle(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
-            for (int i = 0; i < matrix.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                for (int j = i; j < matrix[i].Count; j++)
+                for (int j = i; j < count; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
             List<int> result = new List<int> { amount, min, max };
             return result;
         }
-        public static List<int> Bottom_Triangle(List<List<int>> matrix)
+        public static List<int> Bottom_Triangle(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
-            for (int i = 0; i < matrix.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 for (int j = 0; j < i + 1; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
             List<int> result = new List<int> { amount, min, max };
             return result;
         }
-        public static List<int> Left_Triangle(List<List<int>> matrix)
+        public static List<int> Left_Triangle(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
 
-            int average = (int)Math.Ceiling(matrix.Count / 2.0);
+            int average = (int)Math.Ceiling(count / 2.0);
 
             for (int i = 0; i < average; i++)
             {
                 for (int j = 0; j < i + 1; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
-            for (int i = average; i < matrix.Count; i++)
+            for (int i = average; i < count; i++)
             {
-                for (int j = 0; j < matrix.Count - i; j++)
+                for (int j = 0; j < count - i; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
             List<int> result = new List<int> { amount, min, max };
             return result;
         }
-        public static List<int> Right_Triangle(List<List<int>> matrix)
+        public static List<int> Right_Triangle(int[,] matrix, int count)
         {
-            int min = matrix[0][0];
-            int max = matrix[0][0];
+            int min = matrix[0, 0];
+            int max = matrix[0, 0];
             int amount = 0;
 
-            int average = (int)Math.Ceiling(matrix.Count / 2.0);
+            int average = (int)Math.Ceiling(count / 2.0);
 
             for (int i = 0; i < average; i++)
             {
-                for (int j = matrix.Count - i - 1; j < matrix.Count; j++)
+                for (int j = count - i - 1; j < count; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
-            for (int i = average; i < matrix.Count; i++)
+            for (int i = average; i < count; i++)
             {
-                for (int j = i; j < matrix.Count; j++)
+                for (int j = i; j < count; j++)
                 {
-                    if (matrix[i][j] < min)
+                    if (matrix[i, j] < min)
                     {
-                        min = matrix[i][j];
+                        min = matrix[i, j];
                     }
-                    if (matrix[i][j] > max)
+                    if (matrix[i, j] > max)
                     {
-                        max = matrix[i][j];
+                        max = matrix[i, j];
                     }
-                    amount += matrix[i][j];
+                    amount += matrix[i, j];
                 }
             }
             List<int> result = new List<int> { amount, min, max };
