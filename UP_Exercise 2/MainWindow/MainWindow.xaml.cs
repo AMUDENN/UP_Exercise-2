@@ -21,7 +21,6 @@ namespace UP_Exercise_2
     {
         public static int[,] matrix = new int[,] { };
         public static int count = 10;
-        public static Random rnd = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -54,6 +53,7 @@ namespace UP_Exercise_2
         private void Get_Random_Matrix(int count)
         {
             matrix = new int[count, count];
+            Random rnd = new Random();
             for (int i = 0; i < count; i++)
             {
                 for (int j = 0; j < count; j++)
