@@ -20,7 +20,8 @@ namespace UP_Exercise_2
     public partial class MainWindow : Window
     {
         public static int[,] matrix = new int[,] { };
-        public static int count = 50;
+        public static int count = 10;
+        public static Random rnd = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -45,15 +46,13 @@ namespace UP_Exercise_2
         }
         private void SetSize_Button_Click(object sender, RoutedEventArgs e)
         {
-            Exception ex = ExceptionFunctions.Ex_Int(size_tbox.Text, "Элемент матрицы", 1, 15);
+            Exception ex = ExceptionFunctions.Ex_Int(size_tbox.Text, "Размер матрицы", 1, 15);
             count = ex == null ? Convert.ToInt32(size_tbox.Text) : 10;
             Get_Random_Matrix(count);
         }
-
         private void Get_Random_Matrix(int count)
         {
             matrix = new int[count, count];
-            Random rnd = new Random();
             for (int i = 0; i < count; i++)
             {
                 for (int j = 0; j < count; j++)
@@ -119,7 +118,7 @@ namespace UP_Exercise_2
             {
                 if(i == j)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -134,7 +133,7 @@ namespace UP_Exercise_2
             {
                 if (i == count - j - 1)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -149,7 +148,7 @@ namespace UP_Exercise_2
             {
                 if (i >= j)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -164,7 +163,7 @@ namespace UP_Exercise_2
             {
                 if (i <= j)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -180,11 +179,11 @@ namespace UP_Exercise_2
             {
                 if (i <= j && j < average)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 if (j >= average && i < count - j)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -200,11 +199,11 @@ namespace UP_Exercise_2
             {
                 if (i >= count - j - 1 && j < average)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 if (i>=j && j >= average)
                 {
-                    tb.Background = new SolidColorBrush(Color.FromArgb(100, 83, 212, 230));
+                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
                 }
                 i++;
                 if (i % count == 0) { j++; i = 0; }
@@ -212,7 +211,11 @@ namespace UP_Exercise_2
         }
         private void Mouse_Leave(object sender, EventArgs e)
         {
-            Matrix_Out(matrix);
+            var items = MainUniformGrid.Children;
+            foreach (TextBox tb in items)
+            {
+                tb.Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"];
+            }
         }
     }
 }
