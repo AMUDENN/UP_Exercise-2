@@ -20,7 +20,7 @@ namespace UP_Exercise_2
     public partial class MainWindow : Window
     {
         public static int[,] matrix = new int[,] { };
-        public static int count = 10;
+        public static int count = 50;
         public MainWindow()
         {
             InitializeComponent();
