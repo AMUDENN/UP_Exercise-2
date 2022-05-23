@@ -10,11 +10,11 @@
         Style="{DynamicResource WindowStyle}">
 
     <Grid>
-        <UniformGrid Name="MainUniformGrid" Height="280" Width="320" MinHeight="280" MinWidth="320" Margin="40,100,560,145"></UniformGrid>
+        <UniformGrid Name="MainUniformGrid" Height="280" Width="320" Margin="40,100,560,145"></UniformGrid>
 
-        <Button x:Name="sizebutton" Content="Задать размер матрицы" Style="{DynamicResource ButtonStyle}" Click="SetSize_Button_Click" Height="40" MinHeight="45" MinWidth="200" Margin="40,35,640,455" />
-        <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,395,575,85" />
-        <Button x:Name="overwrittingbutton" Content="Записать введённые значения" Style="{DynamicResource ButtonStyle}" Click="Set_Values_Click" Height="45" Width="300" MinHeight="45" MinWidth="300" Margin="45,455,575,25" />
+        <Button x:Name="sizebutton" Content="Задать размер матрицы" Style="{DynamicResource ButtonStyle}" Click="SetSize_Button_Click" Height="40" Width="200" Margin="40,35,640,455" />
+        <Button x:Name="buttonrandom" Content="Получить случайную матрицу" Style="{DynamicResource ButtonStyle}" Click="GetRandom_Button_Click" Height="45" Width="300" Margin="45,395,575,85" />
+        <Button x:Name="overwrittingbutton" Content="Записать введённые значения" Style="{DynamicResource ButtonStyle}" Click="Set_Values_Click" Height="45" Width="300" Margin="45,455,575,25" />
 
         <TextBox Name="size_tbox" Style="{DynamicResource TextBoxStyle}" ToolTip="Задайте размер матрицы в диапазоне от 1 до 15" Width="70" Height="45"  Margin="290,35,560,455"/>
 
