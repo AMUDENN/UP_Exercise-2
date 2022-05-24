@@ -37,7 +37,8 @@ namespace UP_Exercise_2
                     TextBox tb = new TextBox
                     {
                         Text = matrix[row, col].ToString(),
-                        Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"]
+                        Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"],
+                        FontSize = 27 - count
                     };
                     MainUniformGrid.Children.Add(tb);
                 }
