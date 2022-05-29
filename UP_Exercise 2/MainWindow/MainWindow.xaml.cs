@@ -22,6 +22,7 @@ namespace UP_Exercise_2
         public static int[,] matrix = new int[,] { };
         public static int count = 10;
         public static Random rnd = new Random();
+        public delegate bool Function(int row, int column);
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +44,6 @@ namespace UP_Exercise_2
                     MainUniformGrid.Children.Add(tb);
                 }
             }
-            All_Out();
         }
         private void SetSize_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -85,12 +85,12 @@ namespace UP_Exercise_2
         }
         private void All_Out()
         {
-            List<int> main_diag = MatrixFunctions.Main_Diagonal(matrix, count);
-            List<int> second_diag = MatrixFunctions.Secondary_Diagonal(matrix, count);
-            List<int> top_triang = MatrixFunctions.Top_Triangle(matrix, count);
-            List<int> bottom_triang = MatrixFunctions.Bottom_Triangle(matrix, count);
-            List<int> left_triang = MatrixFunctions.Left_Triangle(matrix, count);
-            List<int> right_triang = MatrixFunctions.Right_Triangle(matrix, count);
+            List<int> main_diag = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.main_diag);
+            List<int> second_diag = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.secondary_diag);
+            List<int> top_triang = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.top_triag);
+            List<int> bottom_triang = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.bottom_triag);
+            List<int> left_triang = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.left_triag);
+            List<int> right_triang = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.right_triag);
             maindiagonal_amount.Text = Convert.ToString(main_diag[0]);
             maindiagonal_min.Text = Convert.ToString(main_diag[1]);
             maindiagonal_max.Text = Convert.ToString(main_diag[2]);
@@ -110,112 +110,50 @@ namespace UP_Exercise_2
             righttriangle_min.Text = Convert.ToString(right_triang[1]);
             righttriangle_max.Text = Convert.ToString(right_triang[2]);
         }
+        private void HighLighting(Function f, Style style)
+        {
+            int column = 0, row = 0;
+            foreach (TextBox tb in MainUniformGrid.Children)
+            {
+                if (f(row, column))
+                {
+                    tb.Style = style;
+                    tb.FontSize = 28 - count;
+                }
+                column++;
+                if (column % count == 0) { row++; column = 0; }
+            }
+        }
         private void Main_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            foreach (TextBox tb in items)
-            {
-                if(i == j)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.main_diag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Secondary_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            foreach (TextBox tb in items)
-            {
-                if (i == count - j - 1)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.secondary_diag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Top_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            foreach (TextBox tb in items)
-            {
-                if (i >= j)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.top_triag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Bottom_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            foreach (TextBox tb in items)
-            {
-                if (i <= j)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.bottom_triag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Left_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            int average = (int)Math.Ceiling(count / 2.0);
-            foreach (TextBox tb in items)
-            {
-                if (i <= j && j < average)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                if (j >= average && i < count - j)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.left_triag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Right_hl(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
-            int average = (int)Math.Ceiling(count / 2.0);
-            foreach (TextBox tb in items)
-            {
-                if (i >= count - j - 1 && j < average)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                if (i>=j && j >= average)
-                {
-                    tb.Style = (Style)Application.Current.Resources["MatrixHLTextBoxStyle"];
-                }
-                i++;
-                if (i % count == 0) { j++; i = 0; }
-            }
+            HighLighting(MatrixFunctions.right_triag, (Style)Application.Current.Resources["MatrixHLTextBoxStyle"]);
         }
         private void Mouse_Leave(object sender, EventArgs e)
         {
-            var items = MainUniformGrid.Children;
-            foreach (TextBox tb in items)
+            foreach (TextBox tb in MainUniformGrid.Children)
             {
                 tb.Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"];
+                tb.FontSize = 27 - count;
             }
         }
     }
