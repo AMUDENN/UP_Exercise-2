@@ -26,18 +26,20 @@ namespace UP_Exercise_2
         public MainWindow()
         {
             InitializeComponent();
-            Get_Random_Matrix(count);
+            matrix = MatrixFunctions.Get_Random_Matrix(count, rnd);
+            Matrix_Out(matrix);
+            Data_Out();
         }
         private void Matrix_Out(int[,] matrix)
         {
             MainUniformGrid.Children.Clear();
             for (int row = 0; row < count; row++)
             {
-                for (int col = 0; col < count; col++)
+                for (int column = 0; column < count; column++)
                 {
                     TextBox tb = new TextBox
                     {
-                        Text = matrix[row, col].ToString(),
+                        Text = matrix[row, column].ToString(),
                         Style = (Style)Application.Current.Resources["MatrixTextBoxStyle"],
                         FontSize = 27 - count
                     };
@@ -49,41 +51,31 @@ namespace UP_Exercise_2
         {
             Exception ex = ExceptionFunctions.Ex_Int(size_tbox.Text, "Размер матрицы", 1, 15);
             count = ex == null ? Convert.ToInt32(size_tbox.Text) : 10;
-            Get_Random_Matrix(count);
-        }
-        private void Get_Random_Matrix(int count)
-        {
-            matrix = new int[count, count];
-            for (int i = 0; i < count; i++)
-            {
-                for (int j = 0; j < count; j++)
-                {
-                    matrix[i, j] = rnd.Next(1, 100);
-                }
-            }
+            matrix = MatrixFunctions.Get_Random_Matrix(count, rnd);
             Matrix_Out(matrix);
-            All_Out();
+            Data_Out();
         }
         private void GetRandom_Button_Click(object sender, RoutedEventArgs e)
         {
-            Get_Random_Matrix(count);
+            matrix = MatrixFunctions.Get_Random_Matrix(count, rnd);
+            Matrix_Out(matrix);
+            Data_Out();
         }
         private void Set_Values_Click(object sender, RoutedEventArgs e)
         {
             var items = MainUniformGrid.Children;
-            int i = 0;
-            int j = 0;
+            int row = 0, column = 0;
             foreach (TextBox tb in items)
             {
                 Exception ex = ExceptionFunctions.Ex_Int(tb.Text, "Элемент матрицы");
-                matrix[j, i] = ex == null ? Convert.ToInt32(tb.Text) : 0;
-                i++;
-                if (i % count == 0) { j++; i = 0; }
+                matrix[row, column] = ex == null ? Convert.ToInt32(tb.Text) : 0;
+                column++;
+                if (column % count == 0) { row++; column = 0; }
             }
             Matrix_Out(matrix);
-            All_Out();
+            Data_Out();
         }
-        private void All_Out()
+        private void Data_Out()
         {
             List<int> main_diag = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.main_diag);
             List<int> second_diag = MatrixFunctions.GetResult(matrix, count, MatrixFunctions.secondary_diag);
@@ -112,7 +104,7 @@ namespace UP_Exercise_2
         }
         private void HighLighting(Function f, Style style)
         {
-            int column = 0, row = 0;
+            int row = 0, column = 0;
             foreach (TextBox tb in MainUniformGrid.Children)
             {
                 if (f(row, column))

@@ -52,6 +52,18 @@ namespace UP_Exercise_2
     }
     internal class MatrixFunctions
     {
+        public static int[,] Get_Random_Matrix(int count, Random rnd)
+        {
+            int[,] matrix = new int[count, count];
+            for (int row = 0; row < count; row++)
+            {
+                for (int column = 0; column < count; column++)
+                {
+                    matrix[row, column] = rnd.Next(1, 100);
+                }
+            }
+            return matrix;
+        }
         public static bool main_diag(int row, int column) { return row == column; }
         public static bool secondary_diag(int row, int column) { return row == MainWindow.count - column - 1; }
         public static bool top_triag(int row, int column) { return row <= column; }
